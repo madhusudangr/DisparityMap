@@ -57,7 +57,7 @@ public:
     std::vector<float> Zpoints;
     std::vector<cv::Vec3f> colour;
 //public:
-    Disparity_data();
+    //Disparity_data();
     void set_afterPointCloud();
     void set_leftOriginal(cv::Mat Img);
     void set_rightOriginal(cv::Mat Img);

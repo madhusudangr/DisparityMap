@@ -124,7 +124,7 @@ void display() {
     
     // Render the point cloud
     glLoadIdentity();                  // Reset the model-view matrix
-    glTranslatef(-0.0f, -1.0f, -60.0f);  // Move view out of the screen(-30),  down(-1)
+    glTranslatef(-0.0f, -1.0f, -50.0f);  // Move view out of the screen(-30),  down(-1)
     glRotatef(angle,0.0f, 1.0f, 0.0f);  // Rotate about the (,1,0)-axis
     
     glPointSize(1);
