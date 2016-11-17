@@ -26,32 +26,32 @@ void my_computeDisparityMap()
     cv::cvtColor(d.rightOriginal, right_grey, CV_BGR2GRAY);
     
     // scale down the image
-    if (d.m_Downscale)
+    if (d.Downscale)
     {
         cv::resize(left_grey, left_grey, cv::Size(), 0.5, 0.5);
         cv::resize(right_grey, right_grey, cv::Size(), 0.5, 0.5);
     }
     
     // compute left disparity map using stereo correspondence algorithm (Semi-Global Block Matching or SGBM algorithm)
-    cv::Ptr<cv::StereoSGBM> left_sbm = cv::StereoSGBM::create(d.m_MinDisparity, d.m_NumDisparities, d.m_SADWindowSize);
-    left_sbm->setUniquenessRatio(d.m_UniquenessRatio);
-    left_sbm->setDisp12MaxDiff(d.m_Disp12MaxDiff);
-    left_sbm->setSpeckleWindowSize(d.m_SpeckleWindowSize);
-    left_sbm->setP1(d.m_P1);
-    left_sbm->setP2(d.m_P2);
-    left_sbm->setMode(d.m_Mode);
+    cv::Ptr<cv::StereoSGBM> left_sbm = cv::StereoSGBM::create(d.MinDisparity, d.NumDisparities, d.SADWindowSize);
+    left_sbm->setUniquenessRatio(d.UniquenessRatio);
+    left_sbm->setDisp12MaxDiff(d.Disp12MaxDiff);
+    left_sbm->setSpeckleWindowSize(d.SpeckleWindowSize);
+    left_sbm->setP1(d.P1);
+    left_sbm->setP2(d.P2);
+    left_sbm->setMode(d.Mode);
     left_sbm->compute(left_grey, right_grey, left_disp);
     
     // compute right disparity map
     cv::Ptr<cv::StereoMatcher> right_sbm = cv::ximgproc::createRightMatcher(left_sbm);
-    //m_RightRegionOfInterest = _computeRegionOfInterest(m_RightOriginal.size(), right_sbm);
+    //RightRegionOfInterest = _computeRegionOfInterest(RightOriginal.size(), right_sbm);
     right_sbm->compute(right_grey, left_grey, right_disp);
     
     // applying Global Smoothness
     cv::Ptr<cv::ximgproc::DisparityWLSFilter> filter = cv::ximgproc::createDisparityWLSFilterGeneric(true);
-    filter->setDepthDiscontinuityRadius((int)ceil(0.5*d.m_SADWindowSize));
-    filter->setLambda(d.m_LambdaValue);
-    filter->setSigmaColor(d.m_SigmaColor);
+    filter->setDepthDiscontinuityRadius((int)ceil(0.5*d.SADWindowSize));
+    filter->setLambda(d.LambdaValue);
+    filter->setSigmaColor(d.SigmaColor);
     
     // compute filtered disparity map
     filter->filter(left_disp, left_grey, filtered_disp, right_disp);
@@ -59,9 +59,9 @@ void my_computeDisparityMap()
     // convert filtered disparity map from 16 bit short to 8 bit unsigned char and normalize values
     double minVal, maxVal;
     cv::minMaxLoc(filtered_disp, &minVal, &maxVal);
-    filtered_disp.convertTo(d.m_Disparity, CV_8UC1, 255 / (maxVal - minVal));
-    //cv::imshow("Disparity",d.m_Disparity);
-    imwrite("SGBM_sample.png", d.m_Disparity); //save the disparity for further use
+    filtered_disp.convertTo(d.Disparity, CV_8UC1, 255 / (maxVal - minVal));
+    //cv::imshow("Disparity",d.Disparity);
+    imwrite("SGBM_sample.png", d.Disparity); //save the disparity for further use
 }
 
 
@@ -95,17 +95,17 @@ void my_create_pointCloud()
     
     //whie projecting the image we should keep in mind  min/max row & column bounds for the template and blocks
     cv::Size sz = d.leftOriginal.size();
-    int rowMin = (d.m_NumDisparities-1)+(d.m_SADWindowSize/2);
-    int rowMax = sz.width-(d.m_SADWindowSize/2);
-    int colMin = (d.m_SADWindowSize/2);
-    int colMax = sz.height-(d.m_SADWindowSize/2);
+    int rowMin = (d.NumDisparities-1)+(d.SADWindowSize/2);
+    int rowMax = sz.width-(d.SADWindowSize/2);
+    int colMin = (d.SADWindowSize/2);
+    int colMax = sz.height-(d.SADWindowSize/2);
     cv::Rect troi (rowMin, colMin, rowMax - rowMin, colMax - colMin);
     d.roi = troi;
     
     //so we have to estimate point cloud for the roi, shouldnt go outside, else the point cloud will have splits, we will be searching for matches outside the search space.
-    cv::flip(d.m_Disparity(troi), d.flippedDisp, 0);
+    cv::flip(d.Disparity(troi), d.flippedDisp, 0);
     reprojectImageTo3D(d.flippedDisp, d.pointCloud, Qmatrix, false, CV_32F);
-    //cv::reprojectImageTo3D(d.m_Disparity, d.pointCloud, Qmatrix,false,CV_32F);
+    //cv::reprojectImageTo3D(d.Disparity, d.pointCloud, Qmatrix,false,CV_32F);
     
     //after getting the point cloud we set some scaling variables to help scale the plot being rendered in OpenGL
     d.oPscale = 20.0f;

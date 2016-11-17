@@ -31,23 +31,23 @@ public:
     float dscale = oPscale / ((focalLength*baseline)/ numDisparity);
     
     // multiple of window size and 16 pixels
-    int m_NumDisparities = 16*7;
+    int NumDisparities = 16*7;
     // the window size which gave the best disparity, if lesser, more noise, in case window size is more the disparity smoothes a lot.
-    int m_SADWindowSize = 7;
-    int m_UniquenessRatio = 0;
-    int m_MinDisparity = 0;
-    int m_P1 = 8 * 3 * m_SADWindowSize * m_SADWindowSize;
-    int m_P2 = 32 * 3 * m_SADWindowSize * m_SADWindowSize;
-    int m_Disp12MaxDiff = 100000;
-    int m_SpeckleWindowSize = 0;
-    int m_Mode = cv::StereoSGBM::MODE_SGBM_3WAY;
-    double m_LambdaValue = 8000.0;
-    double m_SigmaColor = 1.5;
-    bool m_Downscale = false;
-    bool m_QMatSet = false;
-    int m_CalibrationImagesFilename = NULL;
+    int SADWindowSize = 7;
+    int UniquenessRatio = 0;
+    int MinDisparity = 0;
+    int P1 = 8 * 3 * SADWindowSize * SADWindowSize;
+    int P2 = 32 * 3 * SADWindowSize * SADWindowSize;
+    int Disp12MaxDiff = 100000;
+    int SpeckleWindowSize = 0;
+    int Mode = cv::StereoSGBM::MODE_SGBM_3WAY;
+    double LambdaValue = 8000.0;
+    double SigmaColor = 1.5;
+    bool Downscale = false;
+    bool QMatSet = false;
+    int CalibrationImagesFilename = NULL;
     
-    cv::Mat m_Disparity;
+    cv::Mat Disparity;
     cv::Mat flippedDisp;
     cv::Rect roi;
     
