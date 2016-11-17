@@ -5,7 +5,7 @@
 //  Created by Madhusudan Govindraju on 11/9/16.
 //  Copyright © 2016 Madhusudan Govindraju. All rights reserved.
 //
-//     Program to calculate the disparity map from serio images
+//     Program to calculate the disparity map from sereo images
 //
 
 
