@@ -23,7 +23,7 @@ public:
 
     // setting some global variables for plotting in OpenGL
     double focalLength = 300.0;
-    double baseline = 97.0;
+    double baseline = 100.0;
     int numDisparity = 16*7;
     float oPscale = 8.0f; // how we want to scale the output
     float xscale = oPscale / pointCloud.cols;
@@ -57,40 +57,97 @@ public:
     std::vector<float> Zpoints;
     std::vector<cv::Vec3f> colour;
 //public:
-//    Disparity_data();
-//    void set_afterPointCloud();
-//    void set_leftOriginal(cv::Mat Img);
-//    void set_rightOriginal(cv::Mat Img);
-//    void set_pointCloud(cv::Mat pc);
+    Disparity_data();
+    void set_afterPointCloud();
+    void set_leftOriginal(cv::Mat Img);
+    void set_rightOriginal(cv::Mat Img);
+    void set_pointCloud(cv::Mat pc);
+    void set_Xpoints(std::vector<float> points);
+    void set_Ypoints(std::vector<float> points);
+    void set_Zpoints(std::vector<float> points);
+    void set_Colour(std::vector<cv::Vec3f> points);
+    cv::Mat get_leftOriginal();
+    cv::Mat get_rightOriginal();
+    cv::Mat get_pointCloud();
+    std::vector<float> get_Xpoints();
+    std::vector<float> get_Ypoints();
+    std::vector<float> get_Zpoints();
+    std::vector<cv::Vec3f> get_Colour();
+    
 }d;
 
-//void Disparity_data::set_afterPointCloud()
-//{
-//    // setting some global variables for OpenGL
-//    focalLength = 300.0;
-//    baseline = 97.0;
-//    numDisparity = 16*7;
-//    whscale = 8.0f; // width/height scale
-//    xscale = whscale / pointCloud.cols; // downscale image
-//    yscale = whscale / pointCloud.rows; // downscale image
-//    cscale = 1.0f / 255.0f; // convert from 0-255 to 0-1
-//    dscale = whscale / ((focalLength*baseline)/ numDisparity);
-//    doffset = -6.0f;
-//}
-//
-//void Disparity_data::set_leftOriginal(cv::Mat leftImg)
-//{
-//    leftOriginal = leftImg;
-//}
-//void Disparity_data::set_rightOriginal(cv::Mat rightImg)
-//{
-//    rightOriginal = rightImg;
-//}
-//
-//void Disparity_data::set_pointCloud(cv::Mat pc)
-//{
-//    pointCloud = pc;
-//}
+void Disparity_data::set_afterPointCloud()
+{
+    // setting some global variables for OpenGL
+    d.focalLength = 300.0;
+    d.baseline = 100.0;
+    d.numDisparity = 16*7;
+    d.oPscale = 8.0f;
+    d.xscale = oPscale / pointCloud.cols;
+    d.yscale = oPscale / pointCloud.rows;
+    d.dscale = oPscale / ((focalLength*baseline)/ numDisparity);
+}
+
+void Disparity_data::set_leftOriginal(cv::Mat leftImg)
+{
+    leftOriginal = leftImg;
+}
+void Disparity_data::set_rightOriginal(cv::Mat rightImg)
+{
+    rightOriginal = rightImg;
+}
+
+void Disparity_data::set_pointCloud(cv::Mat pc)
+{
+    pointCloud = pc;
+}
+void Disparity_data::set_Xpoints(std::vector<float> points)
+{
+    Xpoints = points;
+}
+void Disparity_data::set_Ypoints(std::vector<float> points)
+{
+    Ypoints = points;
+}
+void Disparity_data::set_Zpoints(std::vector<float> points)
+{
+    Zpoints = points;
+}
+void Disparity_data::set_Colour(std::vector<cv::Vec3f> points)
+{
+    colour = points;
+}
+cv::Mat Disparity_data::get_leftOriginal()
+{
+    return leftOriginal;
+}
+cv::Mat Disparity_data::get_rightOriginal()
+{
+    return rightOriginal ;
+}
+
+cv::Mat Disparity_data::get_pointCloud()
+{
+    return pointCloud;
+}
+std::vector<float> Disparity_data::get_Xpoints()
+{
+    return Xpoints ;
+}
+std::vector<float> Disparity_data::get_Ypoints()
+{
+    return Ypoints ;
+}
+std::vector<float> Disparity_data::get_Zpoints()
+{
+    return Zpoints ;
+}
+std::vector<cv::Vec3f> Disparity_data::get_Colour()
+{
+    return colour;
+}
+
+
 
 
 
